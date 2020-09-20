@@ -11,16 +11,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-generic-session": "^1.0.4",
+    "@types/koa-router": "^7.4.1",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
+    "inversify": "^5.0.1",
+    "inversify-binding-decorators": "^4.0.0",
+    "inversify-koa-utils": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
     "koa-onerror": "^4.1.0",
-    "koa-router": "^9.1.0",
+    "koa-router": "^9.4.0",
     "koa-static": "^5.0.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/node": "^14.0.14",
