@@ -18,13 +18,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 --  Table structure for `runoob_tbl`
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `runoob_tbl` (
+DROP TABLE IF EXISTS `users_tbl`;
+CREATE TABLE `users_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `password` varchar(40) NOT NULL,
   `email` varchar(40) DEFAULT NULL,
-  `submission_date` date DEFAULT NULL,
+  `phone` varchar(40) DEFAULT NULL,
+  `addr_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -32,63 +33,166 @@ CREATE TABLE `runoob_tbl` (
 --  Records of `runoob_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES ('1', 'admin', '123',NULL, '2017-04-12');
+INSERT INTO `users_tbl` VALUES ('1', 'admin', '123',NULL,NULL,NULL);
 COMMIT;
 
 -- ----------------------------
 --  Table structure for `tcount_tbl`
 -- ----------------------------
-DROP TABLE IF EXISTS `groups`;
-CREATE TABLE `groups` (
+DROP TABLE IF EXISTS `addrs_tbl`;
+CREATE TABLE `addrs_tbl` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+    `area_id` int(11) NOT NULL ,
+    `detail_locatoin` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `groups`
+--  Records of `addrs_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `groups` VALUES ('1', '组一');
+INSERT INTO `addrs_tbl` VALUES ('1', 440300,'龙岗区坂田新村');
 COMMIT;
 
 -- ----------------------------
 --  Table structure for `tcount_tbl`
 -- ----------------------------
-DROP TABLE IF EXISTS `arts`;
-CREATE TABLE `arts` (
+DROP TABLE IF EXISTS `products_tbl`;
+CREATE TABLE `products_tbl` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `content` text NOT NULL,
-  `created_id` int(11) NOT NULL,
+    `type_id` int(11) NOT NULL ,
+    `name` varchar(100) NOT NULL,
+    `detail_id` int(11) NOT NULL ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `arts`
+--  Records of `products_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `arts` VALUES ('1', '文章标题1','content1','1');
+INSERT INTO `products_tbl` VALUES ('1', 1,'电视机',1);
 COMMIT;
 
 
 
 
 
-DROP TABLE IF EXISTS `group_arts`;
-CREATE TABLE `group_arts` (
+DROP TABLE IF EXISTS `types_tbl`;
+CREATE TABLE `types_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) NOT NULL,
-  `art_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `group_arts`
+--  Records of `types_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `group_arts` VALUES ('1', '1','1');
+INSERT INTO `types_tbl` VALUES ('1', '生日专区');
 COMMIT;
+
+
+DROP TABLE IF EXISTS `buy_carts_tbl`;
+CREATE TABLE `buy_carts_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `detail_id` int(11) NOT NULL,
+  `nums` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `buy_carts_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `buy_carts_tbl` VALUES ('1', 1,1,1);
+COMMIT;
+
+
+
+
+DROP TABLE IF EXISTS `details_tbl`;
+CREATE TABLE `details_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `img_url` varchar(100) NOT NULL,
+  `size` int(11) NOT NULL,
+  `unit` varchar(22) NOT NULL,
+  `attr_name` varchar(22) NOT NULL,
+  `attr_model` varchar(22) DEFAULT NULL,
+  `attr_l` int(11) DEFAULT NULL,
+  `attr_w` int(11) DEFAULT NULL,
+  `attr_h` int(11) DEFAULT NULL,
+  `attr_unit` varchar(22) DEFAULT NULL,
+  `attr_location` varchar(50) DEFAULT NULL,
+  `attr_send_time` varchar(22) DEFAULT NULL,
+  `rid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `details_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `details_tbl` VALUES ('1', '生活/水壶','img/a/b/ff.jpg',122,'px',
+'大品牌','ABC_A',22,3,44,'m','shenzhen','2020-2-23',1);
+COMMIT;
+
+
+
+DROP TABLE IF EXISTS `related_tbl`;
+CREATE TABLE `related_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_url` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `related_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `related_tbl` VALUES ('1', 'img/a/b/345.jpg');
+COMMIT;
+
+
+DROP TABLE IF EXISTS `orders_tbl`;
+CREATE TABLE `orders_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `detail_id` int(11) NOT NULL,
+  `nums` int(11) NOT NULL,
+  `receive_status` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `orders_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `orders_tbl` VALUES ('1', 1,1,1);
+COMMIT;
+
+
+
+
+DROP TABLE IF EXISTS `dicts_tbl`;
+CREATE TABLE `dicts_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_code` varchar(50) NOT NULL,
+  `value` int(11) NOT NULL,
+  `label` varchar(22) NOT NULL,
+  `description` varchar(22) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `dicts_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `dicts_tbl` VALUES ('1','orderStatus',1,'未发货','订单状态');
+COMMIT;
+
+
+
 
 
 
