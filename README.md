@@ -70,7 +70,7 @@
  
  
  
-5. buy_carts_tbl  =====> ( id   | title  | img_url | size  | unit  | product_id | detail_id | nums |)
+5. buy_carts_tbl 
 
 |  id  | detail_id | nums |
 |  ----  | ----  |----  |
