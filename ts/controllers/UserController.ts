@@ -46,7 +46,6 @@ export class UserController implements interfaces.Controller {
     }
 
     return this.userService.signUp(ctx);
-
   }
   /**
    * 登录
@@ -132,7 +131,7 @@ export class UserController implements interfaces.Controller {
   private async addAdress(ctx: IContext, next: () => Promise<any>) {
     const data = await this.userService.addAdress(ctx);
     if (data) {
-      ctx.body = new SuccessModel(data);
+      ctx.body = new SuccessModel('收货地址添加成功');
     } else {
       ctx.body = new ErrorModel('收货地址 添加失败');
     }
@@ -146,7 +145,7 @@ export class UserController implements interfaces.Controller {
   private async updateAdress(ctx: IContext, next: () => Promise<any>) {
     const data = await this.userService.updateAdress(ctx);
     if (data) {
-      ctx.body = new SuccessModel(data);
+      ctx.body = new SuccessModel('收货地址修改成功');
     } else {
       ctx.body = new ErrorModel('收货地址修改失败');
     }
@@ -160,7 +159,7 @@ export class UserController implements interfaces.Controller {
   private async delAdress(ctx: IContext, next: () => Promise<any>) {
     const data = await this.userService.delAdress(ctx);
     if (data) {
-      ctx.body = new SuccessModel(data);
+      ctx.body = new SuccessModel('收货地址删除成功');
     } else {
       ctx.body = new ErrorModel('收货地址删除失败');
     }

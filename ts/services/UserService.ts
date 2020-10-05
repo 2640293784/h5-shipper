@@ -195,16 +195,132 @@ class UserService implements IUserService {
   }
 
   public async addAdress(ctx: IContext): Promise<object> {
-    throw new Error('Method not implemented.');
+    const userId = ctx.session.userId;
+
+    let {
+      province_id,
+      city_id,
+      county_id,
+      province,
+      city,
+      county,
+      detail_locatoin,
+      name,
+      tel,
+      remember: checked,
+      postalCode: postal_code,
+    } = ctx.request.body;
+
+    let rawParams = {
+      province_id,
+      city_id,
+      county_id,
+      province,
+      city,
+      county,
+      detail_locatoin,
+      name,
+      tel,
+      // checked,
+      postal_code,
+      uid: userId,
+    };
+
+    try {
+      let result = null;
+      // 暂不分析选没选中
+      result = await sequelize.models.AddrModel.create(rawParams);
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
+
+    return null;
   }
   public async updateAdress(ctx: IContext): Promise<object> {
-    throw new Error('Method not implemented.');
+    const userId = ctx.session.userId;
+
+    let {
+      province_id,
+      city_id,
+      county_id,
+      province,
+      city,
+      county,
+      detail_locatoin,
+      name,
+      tel,
+      remember: checked,
+      postalCode: postal_code,
+      id,
+    } = ctx.request.body;
+
+    let rawParams = {
+      province_id,
+      city_id,
+      county_id,
+      province,
+      city,
+      county,
+      detail_locatoin,
+      name,
+      tel,
+      // checked,
+      postal_code,
+      uid: userId,
+      id,
+    };
+
+    try {
+      let result = null;
+      result = await sequelize.models.AddrModel.update(rawParams, {
+        where: {
+          uid: userId,
+          id,
+        },
+      });
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
+
+    return null;
   }
   public async delAdress(ctx: IContext): Promise<object> {
-    throw new Error('Method not implemented.');
+    const userId = ctx.session.userId;
+
+    let { id } = ctx.request.body;
+
+    let rawParams = {
+      id,
+      uid: userId,
+    };
+
+    try {
+      let result = null;
+
+      let sql = `
+      　　DELETE FROM addrs_tbl WHERE id =${id} AND uid=${userId} ;
+      `;
+
+      result = await sequelize.query(sql);
+
+      console.log('删除收货地址结果', result);
+
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
+
+    return null;
   }
 
   // tools
+
+  public async checkoutAddrs() {}
 
   public async checkUserExist(
     username: string,

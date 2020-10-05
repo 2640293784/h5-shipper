@@ -19,7 +19,7 @@ export default class AddrModel extends Model<AddrModel> {
   uid: number;
 
   @Column
-  provice_id: number;
+  province_id: number;
 
   @Column
   city_id: number;
@@ -28,7 +28,7 @@ export default class AddrModel extends Model<AddrModel> {
   county_id: number;
 
   @Column
-  provice: string;
+  province: string;
 
   @Column
   city: string;
@@ -38,6 +38,9 @@ export default class AddrModel extends Model<AddrModel> {
 
   @Column
   detail_locatoin: string;
+
+  @Column
+  postal_code: string;
 
   @Column
   name: string;
