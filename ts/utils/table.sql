@@ -198,4 +198,24 @@ COMMIT;
 
 
 
+DROP TABLE IF EXISTS `intergrals_tbl`;
+CREATE TABLE `intergrals_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `balance` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `intergrals_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `intergrals_tbl` VALUES ('1','1',1);
+COMMIT;
+
+
+
+
+
+
 SET FOREIGN_KEY_CHECKS = 1;
