@@ -72,9 +72,9 @@
  
 5. buy_carts_tbl 
 
-|  id  | detail_id | nums |
-|  ----  | ----  |----  |
-|  1   | 1  | 1  |
+|  id  | detail_id | nums | uid |
+|  ----  | ----  |----  | ---- |
+|  1   | 1  | 1  | 1 |
  
  
 

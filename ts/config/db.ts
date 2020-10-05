@@ -9,7 +9,7 @@ export const MYSQL_CONF = {
   user: 'root',
   port: '3306',
   password:'root',
-  database: 'memorial_blog',
+  database: 'shipper',
 };
 //   // redis
 //   REDIS_CONF = {
