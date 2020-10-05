@@ -98,9 +98,9 @@
 
  8. orders_tbl 
 
-|  id  | detail_id | nums | receive_status |
-|  ----  | ----  |----  | ---- |
-|  1   | 1  | 1  | 1 |
+|  id  | detail_id | nums | receive_status | uid |
+|  ----  | ----  |----  | ---- | ---- |
+|  1   | 1  | 1  | 1 | 1 |
 
 9. dicts_tbl
  

@@ -189,6 +189,8 @@ CREATE TABLE `dicts_tbl` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `dicts_tbl` VALUES ('1','orderStatus',1,'未发货','订单状态');
+INSERT INTO `dicts_tbl` VALUES ('2','orderStatus',2,'已发货','订单状态');
+INSERT INTO `dicts_tbl` VALUES ('3','orderStatus',3,'以收货','订单状态');
 COMMIT;
 
 
