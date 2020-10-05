@@ -5,6 +5,8 @@ export interface IUserService {
   signUp(ctx: IContext):void;
   // 获取积分
   getIntergral(ctx: IContext): Promise<object>;
+  // 积分充值
+  rechargeIntergral(ctx: IContext): Promise<object>;
   signIn(ctx: IContext): Promise<UserModel>;
   checkUserExist(username?: string, ctx?: IContext): Promise<object | Boolean>;
 }

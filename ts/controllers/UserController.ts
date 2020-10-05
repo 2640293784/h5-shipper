@@ -46,15 +46,7 @@ export class UserController implements interfaces.Controller {
     }
 
     return this.userService.signUp(ctx);
-    
-    // const data = await this.userService.signUp(ctx);
-    // console.log('data', data);
 
-    // if (data) {
-    //   ctx.body = new SuccessModel('注册成功');
-    // } else {
-    //   ctx.body = new ErrorModel('注册失败');
-    // }
   }
   /**
    * 登录
@@ -90,7 +82,7 @@ export class UserController implements interfaces.Controller {
     ctx.body = new SuccessModel('退出功能还为实现');
   }
   /**
-   * 退出
+   * 获取积分(含用户信息)
    * @param ctx
    * @param next
    */
@@ -101,6 +93,20 @@ export class UserController implements interfaces.Controller {
       ctx.body = new SuccessModel(data);
     } else {
       ctx.body = new ErrorModel('获取积分失败');
+    }
+  }
+  /**
+   * 获取积分(含用户信息)
+   * @param ctx
+   * @param next
+   */
+  @httpPost('/rechargeIntergral', checkLogin)
+  private async rechargeIntergral(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.userService.rechargeIntergral(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('积分充值失败');
     }
   }
 }

@@ -8,6 +8,39 @@ import { UserModel } from '../interface/index';
 
 @provide(TAGS.USER)
 class ManageService implements IUserService {
+  public async rechargeIntergral(ctx: IContext): Promise<object> {
+
+    const userId = ctx.session.userId;
+    let { nums } = ctx.request.body;
+    nums = Number(nums);
+
+    try {
+      const userIntergral = await sequelize.models.IntergralModel.findOne({
+        where: {
+          uid: userId,
+        },
+        // raw: true,
+      });
+      let balance = userIntergral.get('balance');
+      console.log('当前的积分为:', balance);
+      balance += nums;
+
+      // save balance
+      userIntergral.balance = balance;
+
+      const saveResult = await userIntergral.save();
+
+      console.log('积分更新结果', saveResult);
+      if (saveResult) {
+        return saveResult;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  // 获取积分
   public async getIntergral(ctx: IContext): Promise<object> {
     const username = ctx.session.username;
     const userId = ctx.session.userId;
@@ -34,6 +67,7 @@ class ManageService implements IUserService {
       throw new Error(error);
     }
   }
+  // 登录
   public async signIn(ctx: IContext): Promise<UserModel> {
     let { username, password } = ctx.request.body;
     let saveResult = null;
@@ -60,28 +94,9 @@ class ManageService implements IUserService {
       throw new Error(error);
     }
   }
+  // 注册
   public async signUp(ctx: IContext) {
     let { username, password } = ctx.request.body;
-    // let existUser = await this.checkUserExist(username);
-    // if (existUser) {
-    //   return existUser;
-    // }
-    // let saveResult = null;
-    // try {
-    //   saveResult = await sequelize.models.UserModel.create(
-    //     {
-    //       name: username,
-    //       password,
-    //     },
-    //     {
-    //       raw: true,
-    //     }
-    //   );
-    //   // 注册成功后同时添加积分表
-    //   return saveResult;
-    // } catch (error) {
-    //   throw new Error(error);
-    // }
 
     const transaction = await sequelize.transaction().then((t: any) => {
       return (
@@ -97,7 +112,7 @@ class ManageService implements IUserService {
         )
 
           // .then((art: any) => {
-            
+
           //   return art;
           //   // return sequelize.models.Arts.create({}, { transaction: t });
           // })
@@ -105,7 +120,6 @@ class ManageService implements IUserService {
           .then((userTable: any) => {
             let uid = userTable.get('id');
             let balance = 500;
-            console.log('用户创建成功userTable', userTable);
             console.log('用户创建成功uid', uid);
             return sequelize.models.IntergralModel.create(
               {
@@ -117,19 +131,14 @@ class ManageService implements IUserService {
                 transaction: t,
               }
             );
-
-            // console.log('保存后的值',af);
-            // console.log('保存后的值.setDatavalue',af.get('id'));
           })
           .then((data: any) => {
-            console.log('注册用户添加积分成功', data);
             if (data) {
               if (data) {
                 ctx.body = new SuccessModel('注册成功');
               } else {
                 ctx.body = new ErrorModel('注册失败');
               }
-
             }
             // return data;
           })
@@ -137,13 +146,6 @@ class ManageService implements IUserService {
           .catch(t.rollback.bind(t))
       );
     });
-
-    // console.log('transaction的值为:',transaction);
-    // if(transaction) {
-    //   ctx.body = new SuccessModel('注册成功')
-    // }else{
-    //   ctx.body = new ErrorModel('注册失败')
-    // }
   }
   /**
    * 测试数据
