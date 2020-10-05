@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import './ioc/inversify.config';
 import { Container, InversifyKoaServer, buildProviderModule } from './ioc';
 import { entryMiddlewareSetting } from './utils/middleWare';
+import { APP_BASIC } from './config/basic.config';
 
 const container = new Container();
 container.load(buildProviderModule());
@@ -12,6 +13,6 @@ const server = new InversifyKoaServer(container);
 server
   .setConfig(entryMiddlewareSetting)
   .build()
-  .listen(3001, () => {
-    console.log(`server is running over 3000 port`);
+  .listen(APP_BASIC.PORT, () => {
+    console.log(`server is running over ${APP_BASIC.PORT} port`);
   });

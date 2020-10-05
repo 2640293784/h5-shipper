@@ -7,13 +7,14 @@ const path = require('path');
 
 const logger = require('koa-logger');
 import bodyParser from 'koa-bodyparser';
+import { APP_BASIC } from '../config/basic.config';
 // const cors = require('koa2-cors'); //跨域处理
 
 // import { REDIS_CONF } from '../config/db';
 const koaStatic = require('koa-static');
 
 export const entryMiddlewareSetting = (app: Application) => {
-  app.use(koaStatic(path.join(__dirname, '../public')));
+  app.use(koaStatic(APP_BASIC.DIR_STATIC));
 
   // app.use(
   //   cors({
