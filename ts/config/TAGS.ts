@@ -3,5 +3,6 @@ let TAGS = {
   MANAGE: Symbol.for('MANAGE'),
   USER: Symbol.for('USER'),
   HOME: Symbol.for('HOME'),
+  PRODUCT: Symbol.for('PRODUCT'),
 };
 export { TAGS };

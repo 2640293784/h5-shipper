@@ -19,6 +19,14 @@ export interface IHomeService {
 
 
 
+export interface IProductService {
+  getData(ctx: IContext): Promise<object>;
+
+}
+
+
+
+
 
 
 export interface UserModel {

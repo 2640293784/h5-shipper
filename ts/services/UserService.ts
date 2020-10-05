@@ -7,7 +7,7 @@ import { QueryTypes } from 'sequelize';
 import { UserModel } from '../interface/index';
 
 @provide(TAGS.USER)
-class ManageService implements IUserService {
+class UserService implements IUserService {
   public async rechargeIntergral(ctx: IContext): Promise<object> {
 
     const userId = ctx.session.userId;
@@ -79,7 +79,7 @@ class ManageService implements IUserService {
         },
         // raw: true,
       });
-      console.log(saveResult);
+
       if (saveResult.length > 0) {
         let users = saveResult[0];
         let id = await users.get('id');
