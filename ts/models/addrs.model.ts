@@ -16,12 +16,35 @@ export default class AddrModel extends Model<AddrModel> {
   id: number;
 
   @Column
-  location: string;
+  uid: number;
 
   @Column
-  phone: string;
+  provice_id: number;
+
+  @Column
+  city_id: number;
+
+  @Column
+  county_id: number;
+
+  @Column
+  provice: string;
+
+  @Column
+  city: string;
+
+  @Column
+  county: string;
+
+  @Column
+  detail_locatoin: string;
+
+  @Column
+  name: string;
+
+  @Column
+  tel: string;
 
   @Column
   checked: boolean;
-
 }

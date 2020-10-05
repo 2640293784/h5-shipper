@@ -9,25 +9,7 @@ import { sequelize } from '../config/mysql';
 class ProductService implements IProductService {
   public async getMovieList(ctx: IContext): Promise<object> {
     try {
-      let result = await sequelize.models.ProductModel.findAll({
-        where: {
-          type_id: 2,
-        },
-        raw:true,
-        nest:true,
-        include: [
-          {
-            model: sequelize.models.DetailModel,
-            // attributes:['']
-          },
-          {
-            model: sequelize.models.TypeModel,
-            // attributes:['']
-          },
-        ],
-      });
-
-      console.log('inclue find 结构是:', result);
+      let result = await this.getMovieListByTypeId(1);
 
       if (result) {
         return result;
@@ -69,5 +51,46 @@ class ProductService implements IProductService {
       ],
     };
     return result;
+  }
+  // tools
+
+  private async getMovieListByTypeId(type_id: number): Promise<object> {
+    try {
+      let result = await this.getProductList({ type_id });
+
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
+  }
+
+  private async getProductList({ type_id = 1 }): Promise<object> {
+    try {
+      let result = await sequelize.models.ProductModel.findAll({
+        where: {
+          type_id,
+        },
+        raw: true,
+        nest: true,
+        include: [
+          {
+            model: sequelize.models.DetailModel,
+            // attributes:['']
+          },
+          {
+            model: sequelize.models.TypeModel,
+            // attributes:['']
+          },
+        ],
+      });
+
+      console.log('inclue find 结构是:', result);
+
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
   }
 }

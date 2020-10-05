@@ -48,12 +48,17 @@
  
 2. addrs_tbl
 
-|  id   | location  | checked | 
-|  ----  | ----  |----  |
-|  1   | 深圳市西乡街道  | true | 
-|  2   | 深圳市西乡街道步行街  | false | 
+|  id | uid | provice | city | county | provice_id | city_id | county_id | detail_locatoin | name | tel | checked |
+|  ----  | ----  |----  | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ----- |
+|  1   | 1  | 北京 | 北京 | 东城 | 11000 | 110100 | 110100 | 地下室 | 张三 | 132123345555 | true |
+|  2   | 1  | 北京 | 北京 | 东城 | 11000 | 110100 | 110100 | 地下室~~ | 李四 | 132123345555 | false |
+    
  
  
+
+ 
+
+
 3. products_tbl   
 
 |  id   | type_id  | name | detail_id | 

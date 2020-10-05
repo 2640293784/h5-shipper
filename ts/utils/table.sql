@@ -42,8 +42,18 @@ COMMIT;
 DROP TABLE IF EXISTS `addrs_tbl`;
 CREATE TABLE `addrs_tbl` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `area_id` int(11) NOT NULL ,
+    `uid` int(11) NOT NULL ,
+    `provice_id` int(11) DEFAULT NULL ,
+    `city_id` int(11) DEFAULT NULL ,
+    `county_id` int(11) DEFAULT NULL ,
+    `provice` varchar(50) DEFAULT NULL,
+    `city` varchar(50) DEFAULT NULL,
+    `county` varchar(50) DEFAULT NULL,
     `detail_locatoin` varchar(100) NOT NULL,
+    `name` varchar(50) NOT NULL,
+    `tel` varchar(22) NOT NULL,
+    `checked` boolean DEFAULT false ,
+
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -51,7 +61,12 @@ CREATE TABLE `addrs_tbl` (
 --  Records of `addrs_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `addrs_tbl` VALUES ('1', 440300,'龙岗区坂田新村');
+INSERT INTO `addrs_tbl` VALUES (0,1, 440000,440300,440306,'广东','深圳','宝安区','西乡街道','张三','123455666',true);
+INSERT INTO `addrs_tbl` VALUES (0,1, 440000,440300,440304,'广东','深圳','龙岗','坂田','李四','123455666',false);
+INSERT INTO `addrs_tbl` VALUES (0,1, 440000,440300,440304,'广东','深圳','龙岗','五和地铁站C出口100米','王五','123455666',false);
+ 
+ 
+ 
 COMMIT;
 
 -- ----------------------------

@@ -109,4 +109,60 @@ export class UserController implements interfaces.Controller {
       ctx.body = new ErrorModel('积分充值失败');
     }
   }
+  /**
+   * 获取收货地址
+   * @param ctx
+   * @param next
+   */
+  @httpGet('/getAdress', checkLogin)
+  private async getAdress(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.userService.getAdress(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('获取地址错误');
+    }
+  }
+  /**
+   * 获取收货地址
+   * @param ctx
+   * @param next
+   */
+  @httpPost('/addAdress', checkLogin)
+  private async addAdress(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.userService.addAdress(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('收货地址 添加失败');
+    }
+  }
+  /**
+   * 获取收货地址
+   * @param ctx
+   * @param next
+   */
+  @httpPost('/updateAdress', checkLogin)
+  private async updateAdress(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.userService.updateAdress(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('收货地址修改失败');
+    }
+  }
+  /**
+   * 获取收货地址
+   * @param ctx
+   * @param next
+   */
+  @httpPost('/delAdress', checkLogin)
+  private async delAdress(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.userService.delAdress(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('收货地址删除失败');
+    }
+  }
 }

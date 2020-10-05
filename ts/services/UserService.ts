@@ -8,8 +8,21 @@ import { UserModel } from '../interface/index';
 
 @provide(TAGS.USER)
 class UserService implements IUserService {
+  public async getAdress(ctx: IContext): Promise<object> {
+    const userId = ctx.session.userId;
+    try {
+      let result = await sequelize.models.AddrModel.findAll({
+        where: {
+          uid: userId,
+        },
+      });
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
+  }
   public async rechargeIntergral(ctx: IContext): Promise<object> {
-
     const userId = ctx.session.userId;
     let { nums } = ctx.request.body;
     nums = Number(nums);
@@ -179,6 +192,16 @@ class UserService implements IUserService {
       ],
     };
     return result;
+  }
+
+  public async addAdress(ctx: IContext): Promise<object> {
+    throw new Error('Method not implemented.');
+  }
+  public async updateAdress(ctx: IContext): Promise<object> {
+    throw new Error('Method not implemented.');
+  }
+  public async delAdress(ctx: IContext): Promise<object> {
+    throw new Error('Method not implemented.');
   }
 
   // tools
