@@ -110,3 +110,12 @@
 |  1   | orderStatus  | 1  | 未发货 | 订单状态 |
 |  2   | orderStatus  | 2  | 已发货 | 订单状态 |
 |  3   | orderStatus  | 3  | 已收货 | 订单状态 |
+
+
+10. intergrals_tbl
+ 
+
+ |  id  | uid | balance |  
+|  ----  | ----  |----  | 
+|  1   | 1  | 1  |
+ 
