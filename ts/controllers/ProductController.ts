@@ -26,4 +26,15 @@ export class ProductControler implements interfaces.Controller {
     ctx.body = new SuccessModel(data);
   }
 
+  @httpGet('/getMovieList')
+  private async getMovieList(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.homeService.getMovieList(ctx);
+    ctx.body = new SuccessModel(data);
+  }
+
+  @httpGet('/getTypeList')
+  private async getTypeList(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.homeService.getTypeList(ctx);
+    ctx.body = new SuccessModel(data);
+  }
 }

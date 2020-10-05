@@ -71,6 +71,7 @@ CREATE TABLE `products_tbl` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `products_tbl` VALUES ('1', 1,'电视机',1);
+INSERT INTO `products_tbl` VALUES ('2', 2,'小电影',2);
 COMMIT;
 
 
@@ -88,7 +89,17 @@ CREATE TABLE `types_tbl` (
 --  Records of `types_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `types_tbl` VALUES ('1', '生日专区');
+INSERT INTO `types_tbl` VALUES (0, '积分商场');
+INSERT INTO `types_tbl` VALUES (0, '影音天地');
+INSERT INTO `types_tbl` VALUES (0, '生日专区');
+INSERT INTO `types_tbl` VALUES (0, '关爱健康');
+INSERT INTO `types_tbl` VALUES (0, '应急甄选');
+INSERT INTO `types_tbl` VALUES (0, '果园飘香');
+INSERT INTO `types_tbl` VALUES (0, '轻松出行');
+INSERT INTO `types_tbl` VALUES (0, '景点门票');
+INSERT INTO `types_tbl` VALUES (0, '文玩空间');
+
+
 COMMIT;
 
 
@@ -134,7 +145,7 @@ CREATE TABLE `details_tbl` (
 --  Records of `details_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `details_tbl` VALUES ('1', '生活/水壶','img/a/b/ff.jpg',122,'px',
+INSERT INTO `details_tbl` VALUES ('2', '生活/水壶','img/a/b/ff.jpg',122,'px',
 '大品牌','ABC_A',22,3,44,'m','shenzhen','2020-2-23',1);
 COMMIT;
 
