@@ -11,9 +11,9 @@ import {
   tableName: 'users_tbl',
 })
 export default class UserModel extends Model<UserModel> {
-  @PrimaryKey
-  @Column
-  id: number;
+  // @PrimaryKey
+  // @Column
+  // id: number;
 
   @Column
   name: string;

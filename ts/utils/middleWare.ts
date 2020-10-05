@@ -2,12 +2,13 @@ import Application = require('koa');
 const fs = require('fs');
 const path = require('path');
 // const morgan = require('koa-morgan');
-// const session = require('koa-generic-session');
-// var redisStore = require('koa-redis');
+const session = require('koa-generic-session');
+var redisStore = require('koa-redis');
 
 const logger = require('koa-logger');
 import bodyParser from 'koa-bodyparser';
 import { APP_BASIC } from '../config/basic.config';
+import { REDIS_CONF } from '../config/db';
 // const cors = require('koa2-cors'); //跨域处理
 
 // import { REDIS_CONF } from '../config/db';
@@ -64,17 +65,17 @@ export const entryMiddlewareSetting = (app: Application) => {
     );
   }
 
-  // app.keys = ['wsyj33000'];
-  // app.use(
-  //   session({
-  //     cookie: {
-  //       path: '/',
-  //       httpOnly: false,
-  //       maxAge: 7 * 24 * 60 * 60 * 1000,
-  //       store: redisStore({
-  //         all: `${REDIS_CONF.host}:${REDIS_CONF.port}`,
-  //       }),
-  //     },
-  //   })
-  // );
+  app.keys = ['wsyj33000'];
+  app.use(
+    session({
+      cookie: {
+        path: '/',
+        httpOnly: false,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        store: redisStore({
+          all: `${REDIS_CONF.host}:${REDIS_CONF.port}`,
+        }),
+      },
+    })
+  );
 };

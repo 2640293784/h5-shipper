@@ -10,5 +10,6 @@ export default async (ctx: IContext, next: () => Promise<any>) => {
     return;
   }
   // console.log('没有登录，验证不过');
-  ctx.body = new ErrorModel({ code: 401 });
+  // ctx.status = 401;
+  ctx.body = new ErrorModel({ code: 401 }, '没有登录，验证不过');
 };
