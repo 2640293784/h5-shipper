@@ -34,6 +34,7 @@ export interface IProductService {
   getMovieList(ctx: IContext): Promise<object>;
   getBirthList(ctx: IContext): Promise<object>;
   getFruitList(ctx: IContext): Promise<object>;
+  getProductByTypeId(ctx: IContext): Promise<object>;
 
 }
 

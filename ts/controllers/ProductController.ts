@@ -34,6 +34,20 @@ export class ProductControler implements interfaces.Controller {
     }
   }
   /**
+   * 菜单分类列表
+   * @param ctx
+   * @param next
+   */
+  @httpGet('/getProductByTypeId')
+  private async getProductByTypeId(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.productService.getProductByTypeId(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('产品数据获取失败');
+    }
+  }
+  /**
    * 电影列表
    * @param ctx
    * @param next
