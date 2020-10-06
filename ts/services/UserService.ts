@@ -4,7 +4,10 @@ import { IUserService } from '../interface';
 import { sequelize } from '../config/mysql';
 import { ErrorModel, SuccessModel } from '../vo/resModel';
 import { QueryTypes } from 'sequelize';
-import { UserModel } from '../interface/index';
+import { UserModelRes } from '../interface/index';
+import UserModel from '../models/user.model';
+import AddrModel from '../models/addrs.model';
+import IntergralModel from '../models/intergral.model';
 
 @provide(TAGS.USER)
 class UserService implements IUserService {
@@ -65,7 +68,7 @@ class UserService implements IUserService {
       join intergrals_tbl i on i.uid=u.id
       WHERE  u.name='${username}' AND u.id=${userId} 
     `;
-    console.log('sql string is:', sql);
+
     try {
       const result = await sequelize.query(sql, {
         raw: true,
@@ -81,7 +84,7 @@ class UserService implements IUserService {
     }
   }
   // 登录
-  public async signIn(ctx: IContext): Promise<UserModel> {
+  public async signIn(ctx: IContext): Promise<UserModelRes> {
     let { username, password } = ctx.request.body;
     let saveResult = null;
     try {
@@ -123,14 +126,8 @@ class UserService implements IUserService {
             transaction: t,
           }
         )
-
-          // .then((art: any) => {
-
-          //   return art;
-          //   // return sequelize.models.Arts.create({}, { transaction: t });
-          // })
           // type:UserModel
-          .then((userTable: any) => {
+          .then((userTable: UserModel) => {
             let uid = userTable.get('id');
             let balance = 500;
             console.log('用户创建成功uid', uid);
@@ -145,7 +142,7 @@ class UserService implements IUserService {
               }
             );
           })
-          .then((data: any) => {
+          .then((data: IntergralModel) => {
             if (data) {
               if (data) {
                 ctx.body = new SuccessModel('注册成功');
@@ -307,8 +304,6 @@ class UserService implements IUserService {
 
       result = await sequelize.query(sql);
 
-      console.log('删除收货地址结果', result);
-
       if (result) {
         return result;
       }
@@ -316,6 +311,57 @@ class UserService implements IUserService {
     } catch (error) {}
 
     return null;
+  }
+
+  public async checkoutAdress(ctx: IContext) {
+    const userId = ctx.session.userId;
+    let { id } = ctx.request.body;
+
+    let userTable = await sequelize.models.UserModel.findOne({
+      where: { id: userId },
+    });
+    let oldCheckedId = userTable.get('addr_id');
+    const transaction = await sequelize.transaction().then((t: any) => {
+      return sequelize.models.AddrModel.update(
+        { checked: true },
+        {
+          where: { id },
+        }
+      )
+        .then((addrTable: AddrModel) => {
+          return sequelize.models.UserModel.update(
+            { addr_id: id },
+            { where: { id: userId } }
+          );
+        })
+
+        .then((unkwonwTable: UserModel | AddrModel) => {
+          console.log(
+            'unkonwTable的父类xxxxxxxxxxxxxxxxxxxxxxxx:=======:',
+            unkwonwTable.constructor
+          );
+          if (oldCheckedId !== null) {
+            return sequelize.models.AddrModel.update(
+              { checked: false },
+              { where: { id: oldCheckedId } }
+            );
+          }
+          return unkwonwTable;
+        })
+
+        .then((data: UserModel | AddrModel) => {
+          if (data) {
+            if (data) {
+              ctx.body = new SuccessModel('收货地址切换成功');
+            } else {
+              ctx.body = new ErrorModel('收货地址切换失败');
+            }
+          }
+          // return data;
+        })
+        .then(t.commit.bind(t))
+        .catch(t.rollback.bind(t));
+    });
   }
 
   // tools
@@ -337,7 +383,6 @@ class UserService implements IUserService {
         },
         raw: true,
       });
-      console.log('查询用户结果', result);
 
       if (result?.length > 0) {
         return result;

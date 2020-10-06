@@ -164,4 +164,14 @@ export class UserController implements interfaces.Controller {
       ctx.body = new ErrorModel('收货地址删除失败');
     }
   }
+  /**
+   * 获取收货地址
+   * @param ctx
+   * @param next
+   */
+  @httpPost('/checkoutAdress', checkLogin)
+  private async checkoutAdress(ctx: IContext, next: () => Promise<any>) {
+    return this.userService.checkoutAdress(ctx);
+   
+  }
 }

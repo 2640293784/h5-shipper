@@ -3,7 +3,7 @@ import { Router, IContext } from '../ioc/index';
 export interface IUserService {
   getData(ctx: IContext): Promise<object>;
   signUp(ctx: IContext):void;
-  signIn(ctx: IContext): Promise<UserModel>;
+  signIn(ctx: IContext): Promise<UserModelRes>;
   checkUserExist(username?: string, ctx?: IContext): Promise<object | Boolean>;
   // 获取积分
   getIntergral(ctx: IContext): Promise<object>;
@@ -17,6 +17,8 @@ export interface IUserService {
   updateAdress(ctx: IContext): Promise<object>;
   // 删除收货地址
   delAdress(ctx: IContext): Promise<object>;
+  // 切换收货地址
+  checkoutAdress(ctx: IContext): void;
 
 }
 
@@ -40,7 +42,7 @@ export interface IProductService {
 
 
 
-export interface UserModel {
+export interface UserModelRes {
   id: number|unknown;
   name: string | any;
   passport?: string | any;

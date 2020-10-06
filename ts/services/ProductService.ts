@@ -4,12 +4,34 @@ import { IProductService } from '../interface';
 // import { sequelize } from '../config/mysql';
 import { ErrorModel, SuccessModel } from '../vo/resModel';
 import { sequelize } from '../config/mysql';
-
+import { QueryTypes } from 'sequelize';
 @provide(TAGS.PRODUCT)
 class ProductService implements IProductService {
   public async getMovieList(ctx: IContext): Promise<object> {
+    let sql = `
+      select DISTINCT
+
+      p.id as product_id , p.name as product_name,
+      d.id as detail_id,
+      m.*
+
+      from products_tbl p
+      
+      left join details_tbl d on d.id=p.detail_id
+
+      left join movie_details_tbl m  on m.id=d.movie_id
+
+
+      where p.type_id=2;
+    `;
     try {
-      let result = await this.getMovieListByTypeId(1);
+      // let result = await this.getMovieListByTypeId(2);
+      let result = await sequelize.query(sql,{
+        raw:true,
+        type: QueryTypes.SELECT,
+      });
+
+      console.log('产品数据',result)
 
       if (result) {
         return result;

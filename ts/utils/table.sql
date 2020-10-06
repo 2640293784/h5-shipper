@@ -86,7 +86,7 @@ CREATE TABLE `products_tbl` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `products_tbl` VALUES ('1', 1,'电视机',1);
-INSERT INTO `products_tbl` VALUES ('2', 2,'小电影',2);
+INSERT INTO `products_tbl` VALUES (0, 2,'小电影3',2);
 COMMIT;
 
 
@@ -153,6 +153,7 @@ CREATE TABLE `details_tbl` (
   `attr_location` varchar(50) DEFAULT NULL,
   `attr_send_time` varchar(22) DEFAULT NULL,
   `rid` int(11) DEFAULT NULL,
+  `movie_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -237,6 +238,34 @@ CREATE TABLE `intergrals_tbl` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `intergrals_tbl` VALUES ('1','1',1);
+COMMIT;
+
+
+
+
+
+
+
+DROP TABLE IF EXISTS `movie_details_tbl`;
+CREATE TABLE `movie_details_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(22) NOT NULL,
+  `img_url` varchar(200) NOT NULL,
+  `movie_url` varchar(200) NOT NULL,
+  `grade` FLOAT(10,2) NOT NULL,
+  `show_time` timestamp  NOT NULL,
+  `director` varchar(30) NOT NULL,
+  `kind` varchar(10) NOT NULL,
+  `performer` varchar(100) NOT NULL,
+  `discribe` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `movie_details_tbl`
+-- ----------------------------
+BEGIN;
+INSERT INTO `movie_details_tbl` VALUES (0,'红高粱','img/a.jpg','move/aa.mp4',8.20,'2020-12-04','张艺谋','爱情','九儿,等','一去不回的电影');
 COMMIT;
 
 

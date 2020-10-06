@@ -6,6 +6,7 @@ import {
   DataType,
   PrimaryKey,
 } from 'sequelize-typescript';
+ 
 
 @Table({
   tableName: 'details_tbl',
@@ -16,47 +17,33 @@ export default class DetailModel extends Model<DetailModel> {
   id: number;
 
   @Column
-  title: string;
+  name: string;
 
   @Column
   img_url: string;
   
   @Column
-  size: number;
+  movie_url: string;
+  
+  @Column
+  grade: number;
 
   @Column
-  unit: string;
+  show_time: Date;
 
   @Column
-  attr_name: string;
+  director: string;
 
   @Column
-  attr_model: string;
+  kind: string;
 
   @Column
-  attr_l: number;
+  performer: string;
 
   @Column
-  attr_w: number;
+  discribe: string; // text
 
-  @Column
-  attr_h: number;
-
-
-  @Column
-  attr_unit: string;
-
-  @Column
-  attr_location: string;
-
-  @Column
-  attr_send_time: string;
-
-  @Column
-  rid: number;
-
-  @Column
-  movie_id: number;
+ 
 
 
 }
