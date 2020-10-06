@@ -11,6 +11,10 @@ import IntergralModel from '../models/intergral.model';
 
 @provide(TAGS.USER)
 class UserService implements IUserService {
+  /**
+   * 收货地址列表
+   * @param ctx
+   */
   public async getAdress(ctx: IContext): Promise<object> {
     const userId = ctx.session.userId;
     try {
@@ -25,6 +29,10 @@ class UserService implements IUserService {
       return null;
     } catch (error) {}
   }
+  /**
+   * 积分充值
+   * @param ctx
+   */
   public async rechargeIntergral(ctx: IContext): Promise<object> {
     const userId = ctx.session.userId;
     let { nums } = ctx.request.body;
@@ -56,7 +64,10 @@ class UserService implements IUserService {
       throw new Error(error);
     }
   }
-  // 获取积分
+  /**
+   * 获取积分
+   * @param ctx
+   */
   public async getIntergral(ctx: IContext): Promise<object> {
     const username = ctx.session.username;
     const userId = ctx.session.userId;
@@ -83,7 +94,10 @@ class UserService implements IUserService {
       throw new Error(error);
     }
   }
-  // 登录
+  /**
+   * 登录
+   * @param ctx
+   */
   public async signIn(ctx: IContext): Promise<UserModelRes> {
     let { username, password } = ctx.request.body;
     let saveResult = null;
@@ -110,7 +124,10 @@ class UserService implements IUserService {
       throw new Error(error);
     }
   }
-  // 注册
+  /**
+   * 注册
+   * @param ctx
+   */
   public async signUp(ctx: IContext) {
     let { username, password } = ctx.request.body;
 
@@ -190,7 +207,10 @@ class UserService implements IUserService {
     };
     return result;
   }
-
+  /**
+   * 添加收货地址
+   * @param ctx
+   */
   public async addAdress(ctx: IContext): Promise<object> {
     const userId = ctx.session.userId;
 
@@ -235,6 +255,10 @@ class UserService implements IUserService {
 
     return null;
   }
+  /**
+   * 更新收货地址
+   * @param ctx
+   */
   public async updateAdress(ctx: IContext): Promise<object> {
     const userId = ctx.session.userId;
 
@@ -285,6 +309,10 @@ class UserService implements IUserService {
 
     return null;
   }
+  /**
+   * 删除收货地址
+   * @param ctx
+   */
   public async delAdress(ctx: IContext): Promise<object> {
     const userId = ctx.session.userId;
 
@@ -313,6 +341,10 @@ class UserService implements IUserService {
     return null;
   }
 
+  /**
+   * 切换收货地址
+   * @param ctx
+   */
   public async checkoutAdress(ctx: IContext) {
     const userId = ctx.session.userId;
     let { id } = ctx.request.body;
@@ -364,7 +396,7 @@ class UserService implements IUserService {
     });
   }
 
-  // tools
+  // ============================= tools ==========================================
 
   public async checkoutAddrs() {}
 

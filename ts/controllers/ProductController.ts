@@ -18,23 +18,63 @@ import { APP_BASIC } from '../config/basic.config';
 @controller(`/${APP_BASIC.VERSION}/api/product`)
 @validFluentProvide(TYPE.Controller, 'ProductControler')
 export class ProductControler implements interfaces.Controller {
-  constructor(@inject(TAGS.PRODUCT) private homeService: IProductService) {}
-
-  @httpGet('/test')
-  private async getMMenu(ctx: IContext, next: () => Promise<any>) {
-    const data = await this.homeService.getData(ctx);
-    ctx.body = new SuccessModel(data);
-  }
-
-  @httpGet('/getMovieList')
-  private async getMovieList(ctx: IContext, next: () => Promise<any>) {
-    const data = await this.homeService.getMovieList(ctx);
-    ctx.body = new SuccessModel(data);
-  }
-
+  constructor(@inject(TAGS.PRODUCT) private productService: IProductService) {}
+  /**
+   * 菜单分类列表
+   * @param ctx
+   * @param next
+   */
   @httpGet('/getTypeList')
   private async getTypeList(ctx: IContext, next: () => Promise<any>) {
-    const data = await this.homeService.getTypeList(ctx);
-    ctx.body = new SuccessModel(data);
+    const data = await this.productService.getTypeList(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('菜单分类获取失败');
+    }
+  }
+  /**
+   * 电影列表
+   * @param ctx
+   * @param next
+   */
+  @httpGet('/getMovieList')
+  private async getMovieList(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.productService.getMovieList(ctx);
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('电影列表区获取失败');
+    }
+  }
+  /**
+   * 生日专区
+   * @param ctx
+   * @param next
+   */
+  @httpGet('/getBirthList')
+  private async getBirthList(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.productService.getBirthList(ctx);
+
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('生日专区获取失败');
+    }
+  }
+  /**
+   * 水果专区
+   * @param ctx
+   * @param next
+   */
+  @httpGet('/getFruitList')
+  private async getFruitList(ctx: IContext, next: () => Promise<any>) {
+    const data = await this.productService.getFruitList(ctx);
+
+    if (data) {
+      ctx.body = new SuccessModel(data);
+    } else {
+      ctx.body = new ErrorModel('生日专区获取失败');
+    }
   }
 }

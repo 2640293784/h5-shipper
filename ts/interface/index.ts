@@ -23,7 +23,6 @@ export interface IUserService {
 }
 
 export interface IHomeService {
-  getData(ctx: IContext): Promise<object>;
   getCarouser(ctx: IContext): Promise<object>;
 }
 
@@ -31,9 +30,10 @@ export interface IHomeService {
 
 
 export interface IProductService {
-  getData(ctx: IContext): Promise<object>;
   getTypeList(ctx: IContext): Promise<object>;
   getMovieList(ctx: IContext): Promise<object>;
+  getBirthList(ctx: IContext): Promise<object>;
+  getFruitList(ctx: IContext): Promise<object>;
 
 }
 

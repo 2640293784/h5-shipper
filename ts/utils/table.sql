@@ -86,7 +86,7 @@ CREATE TABLE `products_tbl` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `products_tbl` VALUES ('1', 1,'电视机',1);
-INSERT INTO `products_tbl` VALUES (0, 2,'小电影3',2);
+INSERT INTO `products_tbl` VALUES (0, 3,'小电影3',3);
 COMMIT;
 
 
@@ -161,8 +161,8 @@ CREATE TABLE `details_tbl` (
 --  Records of `details_tbl`
 -- ----------------------------
 BEGIN;
-INSERT INTO `details_tbl` VALUES ('2', '生活/水壶','img/a/b/ff.jpg',122,'px',
-'大品牌','ABC_A',22,3,44,'m','shenzhen','2020-2-23',1);
+INSERT INTO `details_tbl` VALUES (0, '生日/水壶','/img/cake/birth-05.84ac83b.jpg',122,'px',
+'大品牌','ABC_A',22,3,44,'m','shenzhen','2020-2-23',1,null);
 COMMIT;
 
 

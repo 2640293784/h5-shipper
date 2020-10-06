@@ -7,31 +7,78 @@ import { sequelize } from '../config/mysql';
 import { QueryTypes } from 'sequelize';
 @provide(TAGS.PRODUCT)
 class ProductService implements IProductService {
-  public async getMovieList(ctx: IContext): Promise<object> {
-    let sql = `
-      select DISTINCT
-
-      p.id as product_id , p.name as product_name,
-      d.id as detail_id,
-      m.*
-
-      from products_tbl p
-      
-      left join details_tbl d on d.id=p.detail_id
-
-      left join movie_details_tbl m  on m.id=d.movie_id
-
-
-      where p.type_id=2;
-    `;
+  /**
+   * 生日专区
+   * @param ctx 
+   */
+  public async getBirthList(ctx: IContext): Promise<object> {
+    let sql = `select DISTINCT
+    p.id as product_id , p.name as product_name,p.detail_id,
+    d.title,d.img_url,d.size,d.unit,d.rid as related_id
+    d.attr_name,d.attr_model,d.attr_l,d.attr_w,d.attr_h,d.attr_unit,d.attr_location,d.attr_send_time,
+    from products_tbl p
+    join details_tbl d on d.id=p.detail_id
+    where p.type_id=3  limit 4;
+  `;
     try {
       // let result = await this.getMovieListByTypeId(2);
-      let result = await sequelize.query(sql,{
-        raw:true,
+      let result = await sequelize.query(sql, {
+        raw: true,
         type: QueryTypes.SELECT,
       });
 
-      console.log('产品数据',result)
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
+  }
+  /**
+   * 水果专区
+   * @param ctx 
+   */
+  public async getFruitList(ctx: IContext): Promise<object> {
+    let sql = `select DISTINCT
+    p.id as product_id , p.name as product_name,p.detail_id,
+    d.title,d.img_url,d.size,d.unit,d.rid as related_id
+    d.attr_name,d.attr_model,d.attr_l,d.attr_w,d.attr_h,d.attr_unit,d.attr_location,d.attr_send_time,
+    from products_tbl p
+    join details_tbl d on d.id=p.detail_id
+    where p.type_id=6  limit 3;
+  `;
+    try {
+
+      let result = await sequelize.query(sql, {
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
+
+      if (result) {
+        return result;
+      }
+      return null;
+    } catch (error) {}
+  }
+  /**
+   *  电影专区
+   * @param ctx 
+   */
+  public async getMovieList(ctx: IContext): Promise<object> {
+    let sql = `select DISTINCT
+      p.id as product_id , p.name as product_name,
+      d.id as detail_id,
+      m.*
+      from products_tbl p
+      join details_tbl d on d.id=p.detail_id
+      join movie_details_tbl m  on m.id=d.movie_id
+      where p.type_id=2 limit 10;
+    `;
+    try {
+      // let result = await this.getMovieListByTypeId(2);
+      let result = await sequelize.query(sql, {
+        raw: true,
+        type: QueryTypes.SELECT,
+      });
 
       if (result) {
         return result;
@@ -58,22 +105,7 @@ class ProductService implements IProductService {
       throw new Error(error);
     }
   }
-  /**
-   * 获取分组,join g,a
-   */
-  public async getData(ctx: IContext) {
-    const result = {
-      id: 2,
-      title: 'product page',
-      group: [
-        {
-          id: 1,
-          name: 'item1',
-        },
-      ],
-    };
-    return result;
-  }
+
   // tools
 
   private async getMovieListByTypeId(type_id: number): Promise<object> {
