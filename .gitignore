@@ -1,8 +1,8 @@
 node_modules/
 dist/
+doc/
 npm-debug.log*
 
 # Editor directories and files
 .idea
 .vscode/
-

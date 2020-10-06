@@ -3,7 +3,7 @@ import { provide, IContext } from '../ioc';
 import { IUserService } from '../interface';
 import { sequelize } from '../config/mysql';
 import { ErrorModel, SuccessModel } from '../vo/resModel';
-import { QueryTypes } from 'sequelize';
+import { QueryTypes, Transaction } from 'sequelize';
 import { UserModelRes } from '../interface/index';
 import UserModel from '../models/user.model';
 import AddrModel from '../models/addrs.model';
@@ -39,12 +39,14 @@ class UserService implements IUserService {
     nums = Number(nums);
 
     try {
-      const userIntergral = await sequelize.models.IntergralModel.findOne({
-        where: {
-          uid: userId,
-        },
-        // raw: true,
-      });
+      const userIntergral = <IntergralModel>(
+        await sequelize.models.IntergralModel.findOne({
+          where: {
+            uid: userId,
+          },
+          // raw: true,
+        })
+      );
       let balance = userIntergral.get('balance');
       console.log('当前的积分为:', balance);
       balance += nums;
@@ -131,8 +133,8 @@ class UserService implements IUserService {
   public async signUp(ctx: IContext) {
     let { username, password } = ctx.request.body;
 
-    const transaction = await sequelize.transaction().then((t: any) => {
-      return (
+    const transaction = await sequelize.transaction().then((t: Transaction) => {
+      return  (
         sequelize.models.UserModel.create(
           {
             name: username,
@@ -144,7 +146,7 @@ class UserService implements IUserService {
           }
         )
           // type:UserModel
-          .then((userTable: UserModel) => {
+          .then((userTable) => {
             let uid = userTable.get('id');
             let balance = 500;
             console.log('用户创建成功uid', uid);
@@ -159,7 +161,7 @@ class UserService implements IUserService {
               }
             );
           })
-          .then((data: IntergralModel) => {
+          .then((data) => {
             if (data) {
               if (data) {
                 ctx.body = new SuccessModel('注册成功');
@@ -353,21 +355,21 @@ class UserService implements IUserService {
       where: { id: userId },
     });
     let oldCheckedId = userTable.get('addr_id');
-    const transaction = await sequelize.transaction().then((t: any) => {
+    const transaction = await sequelize.transaction().then((t: Transaction) => {
       return sequelize.models.AddrModel.update(
         { checked: true },
         {
           where: { id },
         }
       )
-        .then((addrTable: AddrModel) => {
+        .then((addrTable) => {
           return sequelize.models.UserModel.update(
             { addr_id: id },
             { where: { id: userId } }
           );
         })
 
-        .then((unkwonwTable: UserModel | AddrModel) => {
+        .then((unkwonwTable) => {
           console.log(
             'unkonwTable的父类xxxxxxxxxxxxxxxxxxxxxxxx:=======:',
             unkwonwTable.constructor
@@ -381,7 +383,7 @@ class UserService implements IUserService {
           return unkwonwTable;
         })
 
-        .then((data: UserModel | AddrModel) => {
+        .then((data) => {
           if (data) {
             if (data) {
               ctx.body = new SuccessModel('收货地址切换成功');

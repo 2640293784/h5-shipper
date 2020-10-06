@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cls && tsc && node js/index.js",
-    "dev": "nodemon  --watch ts  --exec ts-node --files ts/index.ts"
+    "server:dev": "scripty",
+    "server:build": "scripty",
+    "docker:dev": "scripty"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bluebird": "^3.5.32",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-generic-session": "^1.0.4",
     "@types/koa-router": "^7.4.1",
+    "@types/validator": "^13.1.0",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "inversify": "^5.0.1",
@@ -23,22 +25,27 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-generic-session": "^2.1.1",
     "koa-json": "^2.0.2",
     "koa-logger": "^3.2.1",
     "koa-onerror": "^4.1.0",
+    "koa-redis": "^4.0.1",
     "koa-router": "^9.4.0",
     "koa-static": "^5.0.0",
     "mysql": "^2.18.1",
-    "koa-redis": "^4.0.1",
-    "koa-generic-session": "^2.1.1",
-    "reflect-metadata": "^0.1.13",
     "mysql2": "^2.1.0",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^5.12.2",
     "sequelize-typescript": "^1.0.0-beta.3"
   },
   "devDependencies": {
     "@types/node": "^14.0.14",
+    "gulp": "^4.0.2",
+    "gulp-typedoc": "^2.2.5",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "nodemon": "^2.0.4",
+    "scripty": "^2.0.0",
+    "typedoc": "^0.19.2",
     "typescript": "^3.9.6"
   }
 }

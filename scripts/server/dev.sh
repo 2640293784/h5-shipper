@@ -1,0 +1,1 @@
+nodemon  --watch ts  --exec ts-node --files ts/index.ts
